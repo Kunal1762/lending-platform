@@ -18,7 +18,11 @@ backend/
 ├── tests/
 │ └── LendingPlatform.Domain.Tests/
 └── docker-compose.yml # Postgres for local development
-frontend/ 
+frontend/lending-ui/
+└── src/
+├── api/client.ts # typed fetch wrapper around the API
+├── App.tsx # application form
+└── StatsPanel.tsx # portfolio statistics panel
 
 
 ## Running the backend
@@ -36,6 +40,23 @@ dotnet run --project src/LendingPlatform.Api
 
 3. Open Swagger at the URL printed in the console, e.g.
    `http://localhost:5058/swagger`
+
+## Running the frontend
+
+**Prerequisites:** Node.js (LTS).
+
+1. If the backend printed a different port than `5058`, update
+   `API_BASE_URL` in `frontend/src/api/client.ts` to match.
+2. Install and run:
+
+cd frontend
+npm install
+npm run dev
+
+3. Open `http://localhost:5173`.
+
+The backend must already be running (see above) — the frontend has no
+functionality of its own without the API.
 
 ## Running the tests
 
@@ -67,6 +88,7 @@ dependencies, so these run in isolation.(for the tests)
   floating-point rounding errors in financial figures.
 - See `ASSUMPTIONS.md` for how ambiguities in the brief's business rules
   were interpreted.
+- The ui is intentionally kept simple, of one page only. it includes three input boxes , submit button, displays result(approved or declined) and stats under that.
 
 ## What I'd do differently for production
 
@@ -75,6 +97,7 @@ dependencies, so these run in isolation.(for the tests)
 - Add pagination to `GET /api/applications` rather than a fixed `Take(100)`.
 - Move credentials out of `docker-compose.yml` into a secrets manager —
   they're committed here only for reviewer convenience.
+- Make a pretty ui containing multiple pages corresponding to different functionalities. also will follow react's layered architecture i.e ui->hooks->service layer-> api layer
 
 
 ## Validation vs. decline
