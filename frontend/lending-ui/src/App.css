@@ -1,0 +1,60 @@
+.app {
+  max-width: 480px;
+  margin: 40px auto;
+  font-family: system-ui, sans-serif;
+  padding: 0 16px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+}
+
+input {
+  padding: 8px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.ltv-preview {
+  font-size: 14px;
+  color: #555;
+}
+
+.error {
+  color: #b00020;
+}
+
+.result {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.result.approved {
+  background: #e6f4ea;
+  border: 1px solid #34a853;
+}
+
+.result.declined {
+  background: #fce8e6;
+  border: 1px solid #ea4335;
+}

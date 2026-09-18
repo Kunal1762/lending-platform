@@ -13,7 +13,16 @@ builder.Services.AddDbContext<LendingDbContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+const string CorsPolicy = "LocalFrontend";
+builder.Services.AddCors(options =>
+    options.AddPolicy(CorsPolicy, policy => policy
+        .WithOrigins("http://localhost:5173")
+        .AllowAnyHeader()
+        .AllowAnyMethod()));
+
 var app = builder.Build();
+
+app.UseCors(CorsPolicy);
 
 using (var scope = app.Services.CreateScope())
 {
