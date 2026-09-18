@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: lending-platform-db
+    environment:
+      POSTGRES_DB: lending_platform
+      POSTGRES_USER: lending
+      POSTGRES_PASSWORD: lending_dev_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - lending-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lending -d lending_platform"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  lending-pgdata:
