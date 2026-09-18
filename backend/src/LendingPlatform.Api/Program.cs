@@ -1,10 +1,14 @@
 using LendingPlatform.Api.Persistence;
 using Microsoft.EntityFrameworkCore;
+using LendingPlatform.Domain.CreditRules;
+using LendingPlatform.Domain.Underwriting;
+using LendingPlatform.Api.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<LendingDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+    builder.Services.AddSingleton<ILendingPolicy, LendingPolicy>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -21,5 +25,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapApplicationEndpoints();
+app.MapStatisticsEndpoints();
 
 app.Run();
